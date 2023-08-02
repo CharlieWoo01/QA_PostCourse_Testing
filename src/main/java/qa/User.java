@@ -8,7 +8,7 @@ public class User
 
     public User(String userName, String password, Address address)
     {
-        if (Utils.isAlphabetic(userName) && userName.length() > 2)
+        if (Utils.isValidUsername(userName))
             this.userName = userName;
         else
             throw new IllegalArgumentException();

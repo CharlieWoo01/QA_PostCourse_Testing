@@ -5,25 +5,24 @@ import java.util.regex.Pattern;
 
 public class Utils
 {
-    public static boolean isAlphabetic(String inputString)
+    /**
+     * Validates that the username is of expected format below:
+     * * Not case sensitive
+     * * No whitespaces or tabs
+     * * Not null
+     * * Greater than 2 chars
+     * * Only contain alphabetic characters
+     * * Must not contain the following ~<>@%$£
+     * @param inputString
+     * @return
+     */
+    public static boolean isValidUsername(String inputString)
     {
-    	return inputString.matches("[a-zA-Z]+");
-    }
-    public static boolean isNumeric(String inputString)
-    {
-    	return inputString.matches("[0-9]+");
-    }
-    public static boolean hasIllegalChars(String inputString)
-    {
-        String[] badChars = { " ", "\t", "\n", "\r", "[", "]", "<", ">", "~", ";", "'", "@" };
-        for (String s : badChars)
-        {
-            if (inputString.contains(s))
-            {
-                return true;
-            }
+        boolean validate = false;
+        if (inputString != null) {
+            validate = inputString.matches("^(?!.*[\\t\\n\\r\\[\\]$£<>~;'@])(?!.*\\d)^[A-Za-z\\.-]{2,}$");
         }
-        return false;
+        return validate;
     }
 
     public static boolean hasOneDigit(String inputString)
@@ -38,7 +37,8 @@ public class Utils
 
     public static boolean hasExtraPasswordChars(String inputString)
     {
-        String[] extraChars = { "$", "�", "%", "@", "?" };
+//        String[] extraChars = { "$", "�", "%", "@", "?" };
+        String[] extraChars = { "$", "%", "@", "?" };
         for (String s : extraChars)
         {
             if (inputString.contains(s))
