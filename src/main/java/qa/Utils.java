@@ -7,7 +7,7 @@ public class Utils
 {
     /**
      * Validates that the username is of expected format below:
-     * * Not case sensitive
+     * * Not case-sensitive
      * * No whitespaces or tabs
      * * Not null
      * * Greater than 2 chars
@@ -25,26 +25,25 @@ public class Utils
         return validate;
     }
 
-    public static boolean hasOneDigit(String inputString)
+    /**
+     * Validates that the password is of expected format below:
+     * Case-sensitive
+     * No whitespaces or tabs
+     * Not null
+     * Must contain at least 1 number
+     * Must contain at least one of the following: ~@%$£
+     * Must not contain <>;='or''--'
+     * Minimum 8 chars
+     * @param inputString
+     * @return
+     */
+    public static boolean isValidPassword(String inputString)
     {
-        for (char c : inputString.toCharArray())
-        {
-            if (Character.isDigit(c))
-                return true;
+        boolean validate = false;
+        if (inputString != null) {
+            validate = inputString.matches("^(?=.*[0-9])(?!.*[<>;=\\-|])(?=.*[~@%$£])[^\s\t]{8,}$");
         }
-        return false;
-    }
-
-    public static boolean hasExtraPasswordChars(String inputString)
-    {
-//        String[] extraChars = { "$", "�", "%", "@", "?" };
-        String[] extraChars = { "$", "%", "@", "?" };
-        for (String s : extraChars)
-        {
-            if (inputString.contains(s))
-                return true;
-        }
-        return false;
+        return validate;
     }
 
     public static boolean isValidUKPostCode(String postCode)

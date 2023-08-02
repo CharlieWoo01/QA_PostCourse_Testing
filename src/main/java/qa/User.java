@@ -13,7 +13,7 @@ public class User
         else
             throw new IllegalArgumentException();
 
-        if (isValidPasswordFormat(password))
+        if (Utils.isValidPassword(password))
             this.password = password;
         else
             throw new IllegalArgumentException();
@@ -26,10 +26,5 @@ public class User
 
     public String getPassword() {
         return password;
-    }
-
-    private boolean isValidPasswordFormat(String password)
-    {
-        return (password != null && password.length() > 8 && Utils.hasExtraPasswordChars(password));
     }
 }

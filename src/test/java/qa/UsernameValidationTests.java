@@ -1,12 +1,8 @@
 package qa;
 
-import org.junit.Before;
 import org.junit.Test;
-
-import java.util.InvalidPropertiesFormatException;
-
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test Plan Scenarios:
@@ -76,6 +72,12 @@ public class UsernameValidationTests {
     @Test
     public void GivenUsernameContainsNumber_ShouldFailValidation() {
         boolean result = Utils.isValidUsername("USERNAME123");
+        assertFalse(result);
+    }
+
+    @Test
+    public void GivenUsernameDoesNotMeetLength_ShouldFailValidation() {
+        boolean result = Utils.isValidUsername("a");
         assertFalse(result);
     }
 
