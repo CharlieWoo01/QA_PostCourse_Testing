@@ -46,11 +46,40 @@ public class Utils
         return validate;
     }
 
+    /**
+     * Validates that the postcode is a valid UK format
+     * @param postCode
+     * @return
+     */
     public static boolean isValidUKPostCode(String postCode)
     {
-    	String regex = "^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$";
-    	Pattern pattern = Pattern.compile(regex);
-    	Matcher matcher = pattern.matcher(postCode.trim());
-    	return matcher.matches();
+        boolean validate = false;
+        if (postCode != null) {
+            String regex = "^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(postCode.trim());
+            validate = matcher.matches();
+        }
+    	return validate;
+    }
+
+    /**
+     * Validates that the house/flat number is only a number and that a dash can be included
+     * @param houseFlatNumber
+     * @return
+     */
+    public static boolean isValidAddressHouseFlatNumber(String houseFlatNumber)
+    {
+        return houseFlatNumber != null && houseFlatNumber.matches("^[-0-9]+$");
+    }
+
+    /**
+     * Validates that the address line is not null
+     * @param addressLine
+     * @return
+     */
+    public static boolean isValidAddressLine(String addressLine)
+    {
+        return addressLine != null;
     }
 }

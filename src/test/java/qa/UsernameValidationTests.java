@@ -4,31 +4,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Test Plan Scenarios:
- *
- * Case-sensitive username:
- * - Upper case username
- * - Lower case username
- * - Camelcase username
- *
- * Username not null:
- * - Null username
- *
- * Username Char limit:
- * - 1 char username
- * - 8 char username
- *
- * Only contain letters:
- * - Username with letters
- * - Username with digits
- *
- * Must not contain special chars
- * - Username with ~>?@%$£
- *
- * Unique username:
- * - Username which matches existing stored username
- */
 public class UsernameValidationTests {
 
 //    private UserAccountDBStub mockedDb;
