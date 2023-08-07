@@ -1,22 +1,23 @@
 package qa;
 
+import qa.exceptions.InvalidUserFormatException;
+
 public class User
 {
     String userName; 
     String password; 
     Address address; 
 
-    public User(String userName, String password, Address address)
-    {
+    public User(String userName, String password, Address address) throws InvalidUserFormatException {
         if (Utils.isValidUsername(userName))
             this.userName = userName;
         else
-            throw new IllegalArgumentException();
+            throw new InvalidUserFormatException();
 
         if (Utils.isValidPassword(password))
             this.password = password;
         else
-            throw new IllegalArgumentException();
+            throw new InvalidUserFormatException();
         this.address = address;
     }
 

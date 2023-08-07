@@ -1,5 +1,8 @@
 package qa;
 
+import qa.exceptions.InvalidUKAddressException;
+import qa.exceptions.InvalidUserFormatException;
+
 import java.util.ArrayList;
 
 public class UserAccountDBStub implements IUserAccountDb {
@@ -7,9 +10,9 @@ public class UserAccountDBStub implements IUserAccountDb {
 	// Database in memory
     ArrayList<String> cities;
     ArrayList<User> users;
+    int loginAttempts = 0;
 
-    public UserAccountDBStub() throws IllegalArgumentException
-    {
+    public UserAccountDBStub() throws InvalidUKAddressException, InvalidUserFormatException {
     	users = new ArrayList<>();
     	cities = new ArrayList<>();
 
@@ -33,7 +36,7 @@ public class UserAccountDBStub implements IUserAccountDb {
         return cities;
     }
 
-    public boolean isAnExistingUser(User user) {
+    public boolean isARegisteredUsername(User user) {
         for (int i = 0; i < users.size(); i++) {
             User userIndex = users.get(i);
             if (userIndex.getUsername().equalsIgnoreCase(user.getUsername())) {
@@ -43,28 +46,34 @@ public class UserAccountDBStub implements IUserAccountDb {
         return false;
     }
 
-    public boolean isRegisteredUser(User user)
-    {
-        for (int i = 0; i < users.size(); i++)
-        {
+    public boolean isAnExistingUser(User user) {
+        for (int i = 0; i < users.size(); i++) {
             User userIndex = users.get(i);
-            if (userIndex.getUsername().equalsIgnoreCase(user.getUsername()))
-            {
-                if (userIndex.getPassword().equals(user.getPassword()))
-                    return true;
+            if (userIndex.getUsername().equalsIgnoreCase(user.getUsername()) &&
+                    userIndex.getPassword().equals(user.getPassword())) {
+                return true;
             }
-            return false;
         }
-        return true;
+        return false;
     }
 
-    public boolean register(User user)
+
+    public boolean registeredUser(User user)
     {
-        if (isAnExistingUser(user)) {
+        if (isARegisteredUsername(user)) {
             return false;
         }
 
         users.add(user);
         return true;
+    }
+
+    public int getLoginAttempts(boolean isExistingUser) {
+        if (isExistingUser) {
+            loginAttempts = 0;
+        } else {
+            loginAttempts++;
+        }
+        return loginAttempts;
     }
 }

@@ -6,9 +6,11 @@ public interface IUserAccountDb
 {
     ArrayList<String> getCityNames();
 
-    boolean register(User user);
-
-    boolean isRegisteredUser(User user);
+    boolean isARegisteredUsername(User user);
 
     boolean isAnExistingUser(User user);
+
+    int getLoginAttempts(boolean isExistingUser);
+
+    boolean registeredUser(User user);
 }

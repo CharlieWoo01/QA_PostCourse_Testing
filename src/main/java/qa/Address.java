@@ -1,5 +1,7 @@
 package qa;
 
+import qa.exceptions.InvalidUKAddressException;
+
 public class Address
 {
     IUserAccountDb userAccountDb;
@@ -11,8 +13,7 @@ public class Address
 
     public Address(String number, String addressLine, 
     		String postCode, String city,
-    		IUserAccountDb userAccountDb)
-    {
+    		IUserAccountDb userAccountDb) throws InvalidUKAddressException {
 
         this.userAccountDb = userAccountDb;
         this.number = number;
@@ -20,16 +21,19 @@ public class Address
         if (isValidCity(city))
             this.city = city;
         else
-            throw new IllegalArgumentException();
+            throw new InvalidUKAddressException();
 
         if (Utils.isValidUKPostCode(postCode))
             this.postCode = postCode;
         else
-            throw new IllegalArgumentException();
+            throw new InvalidUKAddressException();
     }
 
-    public boolean isValidCity(String city)
-    {
-        return userAccountDb.getCityNames().contains(city);
+    public boolean isValidCity(String city) throws InvalidUKAddressException {
+        boolean isValidCity = userAccountDb.getCityNames().contains(city);
+        if (!isValidCity) {
+            throw new InvalidUKAddressException();
+        }
+        return true;
     }
 }

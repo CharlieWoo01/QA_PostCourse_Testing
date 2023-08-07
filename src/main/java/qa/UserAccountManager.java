@@ -1,5 +1,9 @@
 package qa;
 
+import qa.exceptions.InvalidLoginCredentialsException;
+import qa.exceptions.RegisteredUserException;
+import qa.exceptions.TooManyLoginAttemptsException;
+
 // Uses the actual database or a stub/mock database to login or register a user
 public class UserAccountManager
 {
@@ -12,25 +16,26 @@ public class UserAccountManager
 
     // Logs user in. 
     // The username and password format has already been validated
-    public boolean login(User user)
-    {
-    	// Also implement this
-        //	if number of tries to login is > 3    
-        //      throw an exception
+    public boolean login(User user) throws TooManyLoginAttemptsException, InvalidLoginCredentialsException {
+        if (userAccountDb.getLoginAttempts(userAccountDb.isAnExistingUser(user)) >= 3) {
+            throw new TooManyLoginAttemptsException();
+        }
 
-        if (!userAccountDb.isRegisteredUser(user))
-            throw new IllegalArgumentException();
+        boolean isRegistered = userAccountDb.isAnExistingUser(user);
+        if (!isRegistered) {
+            throw new InvalidLoginCredentialsException();
+        }
 
-        return userAccountDb.register(user);
+
+        return !userAccountDb.registeredUser(user);
     }
 
-    public boolean register(User user)
-    {
-        if (userAccountDb.isRegisteredUser(user))
-            throw new IllegalArgumentException();
+    public boolean register(User user) throws RegisteredUserException {
+        if (userAccountDb.isARegisteredUsername(user)) {
+            throw new RegisteredUserException();
+        }
 
-        userAccountDb.register(user);
-
+        userAccountDb.registeredUser(user);
         return true;
     }
 }
