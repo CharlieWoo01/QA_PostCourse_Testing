@@ -20,7 +20,7 @@ public class Utils
     {
         boolean validate = false;
         if (inputString != null) {
-            validate = inputString.matches("^(?!.*[\\t\\n\\r\\[\\]$£<>~;'@])(?!.*\\d)^[A-Za-z\\.-]{2,}$");
+            validate = inputString.matches("^(?!.*[\\t\\n\\r\\[\\]$£<>~;'@])(?!.*\\d)^[A-Za-z\\.-]{2,50}$");
         }
         return validate;
     }
