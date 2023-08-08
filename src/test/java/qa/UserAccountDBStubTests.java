@@ -67,6 +67,5 @@ public class UserAccountDBStubTests {
     public void GivenLoginCredentialsAreValid_ShouldHaveLoginAttemptsAs0() {
         when(userAccountDbMock.getLoginAttempts(true)).thenReturn(0);
         assertTrue(userAccountDBStub.getLoginAttempts(true) == 0);
-        assertTrue(userAccountDBStub.getLoginAttempts(true) == 0);
     }
 }
